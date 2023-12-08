@@ -315,6 +315,12 @@ impl ObjectData {
             },
         });
 
+        // TODO: Better way to prioritize specified width and height from
+        //       being clobered by the template.
+        if w.is_some() && h.is_some() {
+            shape.get_or_insert(ObjectShape::Rect { width, height });
+        }
+
         // Possibly copy properties from the template into the object
         // Any that already exist in the object's map don't get copied over
         if let Some(templ) = template {
